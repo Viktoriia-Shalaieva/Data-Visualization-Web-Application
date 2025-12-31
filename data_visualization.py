@@ -78,7 +78,31 @@ try:
         # display chart in streamlit
         st.plotly_chart(plot)
 
+    if chart_select == 'Histogram':
+        st.sidebar.subheader("Settings of Histogram")
+        x = st.sidebar.selectbox(label="Feature",
+                                       options=numeric_columns)
+        bin_size = st.sidebar.slider(label="Number of bins",
+                                     min_value=10,
+                                     max_value=100,
+                                     value=50)
+        plot = px.histogram(data_frame=df,
+                            x=x,
+                            nbins=bin_size, )
+        st.plotly_chart(plot)
+
+    if chart_select == 'Line Plot':
+        st.sidebar.subheader("Settings of Line Plot")
+        x_value = st.sidebar.selectbox(label="X axis",
+                                       options=numeric_columns)
+        y_value = st.sidebar.selectbox(label="Y axis",
+                                       options=numeric_columns)
+
+        plot = px.line(data_frame=df,
+                       x=x_value,
+                       y=y_value)
+
+        st.plotly_chart(plot)
+
 except Exception as e:
     print(e)
-
-
